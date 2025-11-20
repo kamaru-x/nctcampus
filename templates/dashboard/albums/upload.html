@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="col-span-12 mt-6">
+    <div class="intro-y news p-5 box mt-8">
+        <!-- BEGIN: Blog Layout -->
+        <h2 class="intro-y font-medium text-xl sm:text-2xl">
+            {{ album.title }}
+        </h2>
+        <div class="intro-y mt-6">
+            <div class="news__preview image-fit">
+                <img alt="" class="rounded-md" src="{% if album.cover_image %} {{ album.cover_image.url }} {% else %} https://via.placeholder.com/600x400.png?text=No+Image {% endif %}">
+            </div>
+        </div>
+        <!-- END: Blog Layout -->
+         
+        <form action="/file-upload" class="dropzone mt-5">
+            <div class="fallback"> <input name="file" type="file" multiple /> </div>
+            <div class="dz-message" data-dz-message>
+                <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                <div class="text-slate-500"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="intro-y col-span-12 mt-6">
+
+    <!-- BEGIN: Form Layout -->
+    <div class="intro-y box p-5">
+        <div>
+            <h2 class="text-2xl font-bold text-center text-primary border-b pb-5 mb-10">
+                ADD DEPARTMENT
+            </h2>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="name" class="form-label">Department Name</label>
+                    <input value="{{ department.name }}" name="name" id="name" type="text" class="form-control" placeholder="Enter department name" required>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="head" class="form-label">Department Head</label>
+                    <input value="{{ department.head }}" name="head" id="head" type="text" class="form-control" placeholder="Enter department head name" required>
+                </div>
+
+                <div class="col-span-12 lg:col-span-12">
+                    <label for="description" class="form-label">Department Description</label>
+                    <textarea name="description" id="description" class="form-control" placeholder="Enter department description" rows="5">{{ department.description }}</textarea>
+                </div>
+            </div>
+
+            <div class="text-right mt-5">
+                <a href="{% url 'department-list' %}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                <button type="submit" class="btn btn-primary w-24">Save</button>
+            </div>
+        </form>
+
+    </div>
+    <!-- END: Form Layout -->
+</div>
+{% endblock content %}

@@ -1,0 +1,87 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="col-span-12 mt-6">
+    <div>
+        <h2 class="text-2xl font-bold text-center text-primary border-b pb-5 my-10">
+            ACADAMIC COURSES
+        </h2>
+    </div>
+
+    <div class="intro-y block sm:flex items-center h-10">
+        <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+            <a href="{% url 'create-course' %}" class="btn btn-primary flex items-center text-white dark:text-slate-300"> 
+                <i data-lucide="plus-circle" class="hidden sm:block w-4 h-4 mr-2"></i> 
+                Add Course
+            </a>
+        </div>
+    </div>
+    <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+        {% if courses %}
+            <table class="table table-report sm:mt-2">
+                <thead>
+                    <tr>
+                        <th class="text-center whitespace-nowrap">SL NO</th>
+                        <th class="text-center whitespace-nowrap">COURSE NAME</th>
+                        <th class="text-center whitespace-nowrap">PROGRAM NAME</th>
+                        <th class="text-center whitespace-nowrap">ADDED DATE</th>
+                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+
+                        {% url 'delete-course' course.slug as delete_url %}
+
+                        <tr class="intro-x">
+                            <td class="text-center w-32 ">
+                                {{ forloop.counter }}
+                            </td>
+                            <td class="text-center">
+                                {{ course.name }}
+                            </td>
+                            <td class="text-center">
+                                {{ course.program.name }}
+                            </td>
+                            <td class="text-center">
+                                {{ course.date_added | date:"d M Y" }}
+                            </td>
+                            <td class="table-report__action w-32">
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-warning mx-3" href=""> 
+                                        <i data-lucide="eye" class="w-4 h-4"></i>
+                                    </a>
+                                    <a class="flex items-center text-primary mx-3" href="{% url 'edit-course' course.slug %}"> 
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
+                                    </a>
+                                    <a class="flex items-center text-danger mx-3" href="javascript:;" onclick="openDeleteModal('{{ delete_url }}')"> 
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible mt-5">
+            <table class="table table-report -mt-2">
+                <tbody>
+                    <tr class="intro-x width">
+                        <td class=" width" style="width:100%;">
+                            <i data-lucide="hard-drive"
+                                style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;"
+                                class="w-6 h-6 mr-2 text-white bg-primary">
+                            </i>
+                            <div style="text-align: center;">No data available!</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

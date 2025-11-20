@@ -1,0 +1,134 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="grid grid-cols-12 gap-6">
+    <div class="col-span-12 2xl:col-span-12">
+        <div class="grid grid-cols-12 gap-6">
+            
+            <!-- BEGIN: General Report -->
+            <div class="col-span-12 mt-8">
+                <div class="intro-y flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">
+                        General Report
+                    </h2>
+                    <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
+                </div>
+                <div class="grid grid-cols-12 gap-6 mt-5">
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-lucide="shopping-cart" class="report-box__icon text-primary"></i>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">4.710</div>
+                                <div class="text-base text-slate-500 mt-1">Item Sales</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-lucide="credit-card" class="report-box__icon text-pending"></i>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">3.721</div>
+                                <div class="text-base text-slate-500 mt-1">New Orders</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-lucide="monitor" class="report-box__icon text-warning"></i>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">2.149</div>
+                                <div class="text-base text-slate-500 mt-1">Total Products</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                        <div class="report-box zoom-in">
+                            <div class="box p-5">
+                                <div class="flex">
+                                    <i data-lucide="user" class="report-box__icon text-success"></i>
+                                </div>
+                                <div class="text-3xl font-medium leading-8 mt-6">152.040</div>
+                                <div class="text-base text-slate-500 mt-1">Unique Visitor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END: General Report -->
+
+            <!-- BEGIN: Weekly Top Products -->
+            <div class="col-span-12 mt-6">
+                <div class="intro-y block sm:flex items-center h-10">
+                    <h2 class="text-lg font-medium truncate mr-5">
+                        Weekly Top Products
+                    </h2>
+                    <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+                        <button class="btn box flex items-center text-slate-600 dark:text-slate-300"> <i data-lucide="file-text" class="hidden sm:block w-4 h-4 mr-2"></i> Export to Excel </button>
+                        <button class="ml-3 btn box flex items-center text-slate-600 dark:text-slate-300"> <i data-lucide="file-text" class="hidden sm:block w-4 h-4 mr-2"></i> Export to PDF </button>
+                    </div>
+                </div>
+                <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+                    <table class="table table-report sm:mt-2">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">IMAGES</th>
+                                <th class="whitespace-nowrap">PRODUCT NAME</th>
+                                <th class="text-center whitespace-nowrap">STOCK</th>
+                                <th class="text-center whitespace-nowrap">STATUS</th>
+                                <th class="text-center whitespace-nowrap">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="intro-x">
+                                <td class="w-40">
+                                    <div class="flex">
+                                        <div class="w-10 h-10 image-fit zoom-in">
+                                            <img alt="Midone - HTML Admin Template" class="tooltip rounded-full" src="dist/images/preview-14.jpg" title="Uploaded at 15 August 2022">
+                                        </div>
+                                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                                            <img alt="Midone - HTML Admin Template" class="tooltip rounded-full" src="dist/images/preview-10.jpg" title="Uploaded at 1 January 2021">
+                                        </div>
+                                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                                            <img alt="Midone - HTML Admin Template" class="tooltip rounded-full" src="dist/images/preview-12.jpg" title="Uploaded at 11 November 2022">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="" class="font-medium whitespace-nowrap">Nike Tanjun</a> 
+                                    <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Sport &amp; Outdoor</div>
+                                </td>
+                                <td class="text-center">177</td>
+                                <td class="w-40">
+                                    <div class="flex items-center justify-center text-danger"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Inactive </div>
+                                </td>
+                                <td class="table-report__action w-32">
+                                    <div class="flex justify-center items-center">
+                                        <a class="flex items-center mr-3" href=""> 
+                                            <i data-lucide="check-square" class="w-4 h-4 mr-1"></i>
+                                        </a>
+                                        <a class="flex items-center text-danger" href=""> 
+                                            <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> 
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END: Weekly Top Products -->
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

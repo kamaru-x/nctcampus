@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="intro-y col-span-12 mt-6">
+
+    <!-- BEGIN: Form Layout -->
+    <div class="intro-y box p-5">
+        <div>
+            <h2 class="text-2xl font-bold text-center text-primary border-b pb-5 mb-10">
+                ADD FACULTY
+            </h2>
+        </div>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="name" class="form-label">Faculty Name</label>
+                    <input value="{{ staff.name }}" name="name" id="name" type="text" class="form-control" placeholder="Enter faculty name" required>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="photo" class="form-label">Faculty Photo</label>
+                    <input name="photo" id="photo" type="file" class="form-control file">
+                </div>
+
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="department" class="form-label">Faculty Department</label>
+                    <select name="department" id="department" class="form-control" required>
+                        <option value="">Select Department</option>
+                        {% for department in departments %}
+                            <option value="{{ department.slug }}" {% if staff.department.slug == department.slug %} selected {% endif %}>{{ department.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="position" class="form-label">Faculty Position</label>
+                    <input value="{{ staff.position }}" name="position" id="position" type="text" class="form-control" placeholder="Enter faculty position" required>
+                </div>
+            </div>
+
+            <div class="text-right mt-5">
+                <a href="{% url 'staff-list' %}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                <button type="submit" class="btn btn-primary w-24">Save</button>
+            </div>
+        </form>
+
+    </div>
+    <!-- END: Form Layout -->
+</div>
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="col-span-12 mt-6">
+    <div>
+        <h2 class="text-2xl font-bold text-center text-primary border-b pb-5 my-10">
+            FACULTIES
+        </h2>
+    </div>
+
+    <div class="intro-y block sm:flex items-center h-10">
+        <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+            <a href="{% url 'create-staff' %}" class="btn btn-primary flex items-center text-white dark:text-slate-300"> 
+                <i data-lucide="plus-circle" class="hidden sm:block w-4 h-4 mr-2"></i> 
+                Add Faculty
+            </a>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <!-- BEGIN: Users Layout -->
+        {% if staffs %}
+            {% for staff in staffs %}
+
+                {% url 'delete-staff' staff.slug as delete_url %}
+
+                <div class="intro-y col-span-12 md:col-span-6">
+                    <div class="box">
+                        <div class="flex flex-col lg:flex-row items-center p-5">
+                            <div class="w-24 h-24 lg:w-12 lg:h-12 image-fit lg:mx-1">
+                                <img alt="" class="rounded-full" src="{% if staff.photo %}{{ staff.photo.url }}{% else %}{% static 'dashboard/images/profile.png' %}{% endif %}">
+                            </div>
+                            <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
+                                <a href="" class="font-medium">{{ staff.name }}</a> 
+                                <div class="text-slate-500 text-xs mt-0.5">{{ staff.position }} / {{ staff.department }}</div>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center text-warning mx-3" href=""> 
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </a>
+                                <a class="flex items-center text-primary mx-3" href="{% url 'edit-staff' staff.slug %}"> 
+                                    <i data-lucide="edit" class="w-4 h-4"></i>
+                                </a>
+                                <a class="flex items-center text-danger mx-3" href="javascript:;" onclick="openDeleteModal('{{ delete_url }}')"> 
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible mt-5">
+                <table class="table table-report -mt-2">
+                    <tbody>
+                        <tr class="intro-x width">
+                            <td class=" width" style="width:100%;">
+                                <i data-lucide="hard-drive"
+                                    style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;"
+                                    class="w-6 h-6 mr-2 text-white bg-primary">
+                                </i>
+                                <div style="text-align: center;">No data available!</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+        <!-- BEGIN: Users Layout -->
+    </div>
+</div>
+{% endblock %}
