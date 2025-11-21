@@ -1,0 +1,35 @@
+{% extends 'web/partials/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="clearfix"></div>
+
+<section>
+   <div class="container aboutus">
+        {% if courses %}
+            {% for course in courses %}
+                <div class="bxshadow mb3per">
+                    <div class="mission">
+                        <h1>{{ course.name }}</h1>
+                        <p>{{ course.description }}</p>
+                        <div class="course-meta-bot">
+                            <ul>
+                                <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ course.duration }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="bxshadow mb3per">
+                <div class="mission">
+                    <h1>No Course Found</h1>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock content %}

@@ -60,12 +60,12 @@ urlpatterns = [
 
     #------------ Enquiry URLs ------------ #
     path('enquiries/', views.enquiries, name='enquiry-list'),
-    path('enquiries/<int:id>/view/', views.view_enquiry, name='view-enquiry'),
-    path('enquiries/<int:id>/resolve/', views.resolve_enquiry, name='resolve-enquiry'),
+    path('enquiries/<slug:slug>/view/', views.view_enquiry, name='view-enquiry'),
+    path('enquiries/<slug:slug>/resolve/', views.resolve_enquiry, name='resolve-enquiry'),
 
 
     #------------ Online Forms ------------ #
     path('online-applications/', views.online_applications, name='online-application-list'),
-    path('online-forms/<int:id>/view/', views.view_online_form, name='view-online-form'),
-    path('online-forms/<int:id>/delete/', views.delete_online_form, name='delete-online-form'),
+    path('online-applications/<slug:slug>/view/', views.view_online_application, name='view-online-application'),
+    path('online-applications/<slug:slug>/delete/', views.delete_online_application, name='delete-online-application'),
 ]

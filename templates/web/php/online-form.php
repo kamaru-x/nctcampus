@@ -41,12 +41,17 @@
 
 
 
-<?php require_once("header.php"); ?>
+<?php require_once("header.php");
+if(isset($_POST['savedata']))
+{
+    $fullname = $_POST['fullname'];
+}
+?>
 <div class="clearfix"></div>
 
- <section>
+<section>
    <div class="container aboutus">
-   
+<form method="GET" action="">
 <div class="bxshadow mb3per">
     <div class="mission">
         <h1 class="text-center">Online Form</h1>
@@ -152,7 +157,10 @@
                     <input class="form-control" type="text" name="totalchance" placeholder="Examination passed&No. of chances taken">
                 </div>
             </div>
+            </div>
         <!-- ---------------------- Subject starts ---------------- -->
+        <div class="col-lg-12 subjectall subcolor" >
+        <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="Caste">Subject 1</label>
@@ -160,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="form-group">
@@ -176,8 +184,12 @@
                     </div>
                 </div>                
                 </div>
+        </div>
+        </div>
              <!-- ---------------------- Subject Ends ---------------- -->   
               <!-- ---------------------- Subject starts ---------------- -->
+              <div class="col-lg-12 subjectall subcolor1">
+            <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="Caste">Subject 2</label>
@@ -201,8 +213,12 @@
                     </div>
                 </div>                
                 </div>
+            </div>
+              </div>
              <!-- ---------------------- Subject Ends ---------------- -->   
               <!-- ---------------------- Subject starts ---------------- -->
+              <div class="col-lg-12 subjectall subcolor" >
+                <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="Caste">Subject 3</label>
@@ -226,9 +242,13 @@
                     </div>
                 </div>                
                 </div>
+                </div>
+              </div>
              <!-- ---------------------- Subject Ends ---------------- -->   
 
               <!-- ---------------------- Subject starts ---------------- -->
+              <div class="col-lg-12 subjectall subcolor1" >
+        <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="Caste">Subject 4</label>
@@ -252,9 +272,13 @@
                     </div>
                 </div>                
                 </div>
+        </div>
+              </div>
              <!-- ---------------------- Subject Ends ---------------- -->   
 
               <!-- ---------------------- Subject starts ---------------- -->
+              <div class="col-lg-12 subjectall subcolor" >
+        <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="Caste">Subject 5</label>
@@ -278,9 +302,13 @@
                     </div>
                 </div>                
                 </div>
+        </div>
+              </div>
              <!-- ---------------------- Subject Ends ---------------- -->   
 
               <!-- ---------------------- Subject starts ---------------- -->
+              <div class="col-lg-12 subjectall subcolor1" >
+        <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="Caste">Subject 6</label>
@@ -304,8 +332,10 @@
                     </div>
                 </div>                
                 </div>
+        </div>
+              </div>
              <!-- ---------------------- Subject Ends ---------------- -->   
-
+    <div class="row">
              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label for="Caste">Grade</label>
@@ -386,7 +416,7 @@
                 </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt2per text-center">
-                    <input type="submit" class="btn btn-info" value="Apply Now">
+                    <input type="submit" class="btn btn-info" value="Apply Now" name="savedata">
                 </div>
             </div>
 
@@ -397,7 +427,7 @@
 </div>
 
 
-
+</form>
 </div>
 
  </section>

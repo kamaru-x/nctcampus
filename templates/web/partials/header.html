@@ -27,7 +27,7 @@
 <header class="top-navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'web/images/logos-new.png' %}" alt="national college"  />
             </a>
 
@@ -40,57 +40,53 @@
             <div class="collapse navbar-collapse" id="navbars-host">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.php">Home</a>
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="" id="dropdown-a" data-toggle="dropdown">Who we Are <i class="fa fa-angle-down"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                            <a class="dropdown-item" href="about-us.php">About Us</a>
-                            <a class="dropdown-item" href="rules-and-regulations.php">Rules & Regulations</a>
-                            <a class="dropdown-item" href="placements.php">Placement</a>
+                            <a class="dropdown-item" href="{% url 'about-us' %}">About Us</a>
+                            <a class="dropdown-item" href="{% url 'rules' %}">Rules & Regulations</a>
+                            <a class="dropdown-item" href="{% url 'placements' %}">Placement</a>
                         </div>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Course <i class="fa fa-angle-down"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                            <a class="dropdown-item" href="plus-one-courses.php">Plus One</a>
-                            <a class="dropdown-item" href="ug-courses.php">UG Course</a>
-                            <a class="dropdown-item" href="pg-courses.php">PG Course</a>
-                            <a class="dropdown-item" href="tally-courses.php">Tally Course</a>
-                            <a class="dropdown-item" href="C-Dit-Course.php">C Dit Course</a>
-                            <a class="dropdown-item" href="Certified-Course.php">SAP</a>
-                            <a class="dropdown-item" href="kerala-state"> Kerala State Rutronix affiliated</a>
+                            {% for program in programs_menu %}
+                                <a class="dropdown-item" href="{% url 'courses' program.slug %}">{{ program.name }}</a>
+                            {% endfor %}
                         </div>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Gallery <i class="fa fa-angle-down"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                            <a class="dropdown-item" href="gallery.php">Photos</a>
-                            <a class="dropdown-item" href="video-gallery.php">Videos </a>
+                            <a class="dropdown-item" href="{% url 'photo-gallery' %}">Photos</a>
+                            <a class="dropdown-item" href="{% url 'video-gallery' %}">Videos</a>
                         </div>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Department <i class="fa fa-angle-down"></i></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-a">
-                            <a class="dropdown-item" href="commerece-department.php">Dept Of Commerce</a>
-                            <a class="dropdown-item" href="english-department.php">Dept Of English </a>
-                            <a class="dropdown-item" href="SocialScience-department.php">Dept Of SocialScience </a>
+                            {% for department in departments_menu %}
+                                <a class="dropdown-item" href="{% url 'department-details' department.slug %}">{{ department.name }}</a>
+                            {% endfor %}
                         </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="our-activities.php">Activities</a>
+                        <a class="nav-link" href="{% url 'events' %}">Events</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="online-form.php">Online</a>
+                        <a class="nav-link" href="{% url 'apply-online' %}">Online</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact-us.php">Contact us</a>
+                        <a class="nav-link" href="{% url 'contact-us' %}">Contact us</a>
                     </li>
                 </ul>
             </div>

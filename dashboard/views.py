@@ -763,8 +763,8 @@ def enquiries(request):
 
 
 @login_required
-def view_enquiry(request, id):
-    enquiry = Enquiry.active_objects.filter(id=id).first()
+def view_enquiry(request, slug):
+    enquiry = Enquiry.active_objects.filter(slug=slug).first()
 
     if not enquiry:
         messages.error(request, 'Enquiry not found.')
@@ -775,12 +775,12 @@ def view_enquiry(request, id):
         'enquiry': enquiry,
     }
 
-    return render(request, 'dashboard/view_enquiry.html', context)
+    return render(request, 'dashboard/enquiries/details.html', context)
 
 
 @login_required
-def resolve_enquiry(request, id):
-    enquiry = Enquiry.active_objects.filter(id=id).first()
+def resolve_enquiry(request, slug):
+    enquiry = Enquiry.active_objects.filter(slug=slug).first()
 
     if not enquiry:
         messages.error(request, 'Enquiry not found.')
@@ -794,7 +794,7 @@ def resolve_enquiry(request, id):
     except Exception as e:
         messages.error(request, f'Error resolving enquiry: {e}')
 
-    return redirect('view-enquiry', id=id)
+    return redirect('view-enquiry', slug=slug)
 
 
 # ------------------------ Online Forms ------------------------ #
@@ -812,8 +812,8 @@ def online_applications(request):
 
 
 @login_required
-def view_online_form(request, id):
-    form = OnlineForm.active_objects.filter(id=id).first()
+def view_online_application(request, slug):
+    form = OnlineForm.active_objects.filter(slug=slug).first()
 
     if not form:
         messages.error(request, 'Online form not found.')
@@ -828,8 +828,8 @@ def view_online_form(request, id):
 
 
 @login_required
-def delete_online_form(request, id):
-    form = OnlineForm.active_objects.filter(id=id).first()
+def delete_online_application(request, slug):
+    form = OnlineForm.active_objects.filter(slug=slug).first()
 
     if not form:
         messages.error(request, 'Online form not found.')
