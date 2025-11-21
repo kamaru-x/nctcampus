@@ -2,8 +2,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 class AlbumTypeChoices(models.TextChoices):
-    VIDEO = 'video',_('Video')
-    PHOTO = 'photo',_('Photo')
+    VIDEO = 'videos',_('Video')
+    PHOTO = 'photos',_('Photo')
 
 
 class NewsTypeChoices(models.TextChoices):

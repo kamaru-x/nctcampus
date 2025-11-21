@@ -32,7 +32,7 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ['type', 'title', 'publish', 'is_deleted']
+    list_display = ['type', 'title', 'is_deleted']
 
 
 class EnquiryAdmin(admin.ModelAdmin):

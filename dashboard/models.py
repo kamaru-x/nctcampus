@@ -91,7 +91,7 @@ class Photo(BaseModel):
     def save(self, request=None, *args, **kwargs):
         request = RequestMiddleware(get_response=None)
         request = request.thread_local.current_request
-        save_data(self, request)
+        save_data(self, request, self.album.title)
 
         super(Photo, self).save(*args, **kwargs)
 
@@ -144,6 +144,7 @@ class Staff(BaseModel):
 
 class Event(BaseModel):
     title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='events/images/', null=True, blank=True)
     description = models.TextField()
     event_date = models.DateField()
     start_time = models.TimeField(null=True, blank=True)
@@ -171,10 +172,8 @@ class Event(BaseModel):
 
 class News(BaseModel):
     type = models.CharField(max_length=50, choices=NewsTypeChoices.choices, default=NewsTypeChoices.GENERAL)
-    publish = models.BooleanField(default=False)
     title = models.CharField(max_length=200)
     content = models.TextField()
-    published_date = models.DateField()
     cta = models.URLField(null=True, blank=True)
 
     def __str__(self):
@@ -183,7 +182,7 @@ class News(BaseModel):
     class Meta:
         verbose_name = _('News')
         verbose_name_plural = _('News Articles')
-        ordering = ("-published_date",)
+        ordering = ("-date_added",)
 
     def save(self, request=None, *args, **kwargs):
         request = RequestMiddleware(get_response=None)
@@ -196,6 +195,7 @@ class News(BaseModel):
 
 class Enquiry(BaseModel):
     name = models.CharField(max_length=100)
+    mobile = models.CharField(max_length=15)
     email = models.EmailField()
     subject = models.CharField(max_length=200)
     message = models.TextField()

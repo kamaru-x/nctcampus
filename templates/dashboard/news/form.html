@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="intro-y col-span-12 mt-6">
+
+    <!-- BEGIN: Form Layout -->
+    <div class="intro-y box p-5">
+        <div>
+            <h2 class="text-2xl font-bold text-center text-primary border-b pb-5 mb-10">
+                ADD ANNOUNCEMENT
+            </h2>
+        </div>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-12 lg:col-span-12">
+                    <label for="title" class="form-label">Announcement Title</label>
+                    <input value="{{ news.title }}" name="title" id="title" type="text" class="form-control" placeholder="Enter announcement title" required>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="type" class="form-label">Announcement Type</label>
+                    <select name="type" id="type" class="form-control" required>
+                        <option value="">Select Type</option>
+                        <option value="general" {% if news.type == "general" %}selected{% endif %}>General</option>
+                        <option value="collage_announcements" {% if news.type == "collage_announcements" %}selected{% endif %}>Collage Announcements</option>
+                        <option value="admission_notice" {% if news.type == "admission_notice" %}selected{% endif %}>Admission Notice</option>
+                        <option value="academic_update" {% if news.type == "academic_update" %}selected{% endif %}>Academic Update</option>
+                    </select>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6">
+                    <label for="cta" class="form-label">Redirect Url</label>
+                    <input value="{{ news.cta }}" name="cta" id="cta" type="text" class="form-control" placeholder="Enter redirection url">
+                </div>
+
+                <div class="col-span-12 lg:col-span-12">
+                    <label for="content" class="form-label">Announcement Content</label>
+                    <textarea name="content" id="content" class="form-control" placeholder="Enter announcement content" rows="5">{{ news.content }}</textarea>
+                </div>
+            </div>
+
+            <div class="text-right mt-5">
+                <a href="{% url 'news-list' %}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                <button type="submit" class="btn btn-primary w-24">Save</button>
+            </div>
+        </form>
+
+    </div>
+    <!-- END: Form Layout -->
+</div>
+{% endblock content %}

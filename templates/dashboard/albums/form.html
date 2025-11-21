@@ -26,8 +26,8 @@
                     <label for="type" class="form-label">Album Type</label>
                     <select name="type" id="type" class="form-control" required>
                         <option value="">Select type</option>
-                        <option value="photos" {% if album.type == "photos" %}selected{% endif %}>Photo Album</option>
-                        <option value="videos" {% if album.type == "videos" %}selected{% endif %}>Video Album</option>
+                        <option value="photo" {% if album.type == "photos" %}selected{% endif %}>Photo Album</option>
+                        <option value="video" {% if album.type == "videos" %}selected{% endif %}>Video Album</option>
                     </select>
                 </div>
 

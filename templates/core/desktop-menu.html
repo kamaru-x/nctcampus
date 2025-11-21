@@ -41,6 +41,34 @@
         </a>
     </li>
 
+    <li>
+        <a href="{% url 'event-list' %}" class="side-menu {% if menu == 'events' %} side-menu--active {% endif %}">
+            <div class="side-menu__icon"> <i data-lucide="calendar"></i> </div>
+            <div class="side-menu__title"> Events </div>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'news-list' %}" class="side-menu {% if menu == 'news' %} side-menu--active {% endif %}">
+            <div class="side-menu__icon"> <i data-lucide="award"></i> </div>
+            <div class="side-menu__title"> Announcements </div>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'enquiry-list' %}" class="side-menu {% if menu == 'enquiries' %} side-menu--active {% endif %}">
+            <div class="side-menu__icon"> <i data-lucide="file-text"></i> </div>
+            <div class="side-menu__title"> Enquiries </div>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'online-application-list' %}" class="side-menu {% if menu == 'applications' %} side-menu--active {% endif %}">
+            <div class="side-menu__icon"> <i data-lucide="file-text"></i> </div>
+            <div class="side-menu__title"> Online Applications </div>
+        </a>
+    </li>
+
     <!-- <li>
         <a href="javascript:;" class="side-menu">
             <div class="side-menu__icon"> <i data-lucide="edit"></i> </div>

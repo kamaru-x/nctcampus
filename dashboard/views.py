@@ -8,8 +8,18 @@ from dashboard.models import Program, Course, Department, Staff, Album, Photo, E
 
 @login_required
 def dashboard(request):
+    total_courses = Course.active_objects.count()
+    total_departments = Department.active_objects.count()
+    enquiries = Enquiry.active_objects.all()[:10]
+    total_applications = OnlineForm.active_objects.count()
+
     context = {
         'menu': 'dashboard',
+        'total_courses': total_courses,
+        'total_departments': total_departments,
+        'total_applications': total_applications,
+        'total_enquiries': enquiries.count(),
+        'enquiries': enquiries,
     }
     return render(request, 'dashboard/dashboard.html', context)
 
@@ -500,39 +510,44 @@ def delete_album(request, slug):
 @login_required
 def upload_photo(request, slug):
     album = Album.active_objects.filter(slug=slug).first()
+    files = Photo.active_objects.filter(album=album)
 
     if not album:
         messages.error(request, 'Album not found.')
         return redirect('albums')
 
     if request.method == 'POST':
-        image = request.FILES.get('image')
-        file = request.FILES.get('file')
+        file = request.FILES.getlist('files')
+
+        if not file:
+            return redirect('album-list')
 
         try:
-            Photo.objects.create(album=album, image=image, file=file)
+            for f in file:
+                Photo.objects.create(album=album, file=f)
+
             messages.success(request, 'Photo uploaded successfully.')
         except Exception as e:
             messages.error(request, f'Error uploading photo: {e}')
-            return redirect('upload-photo', slug=slug)
-
-        return redirect('album-list', slug=slug)
+        
+        return redirect('upload-photo', slug=slug)
 
     context = {
         'menu': 'albums',
         'album': album,
+        'files': files,
     }
 
     return render(request, 'dashboard/albums/upload.html', context)
 
 
 @login_required
-def delete_photo(request, photo_id):
-    photo = Photo.active_objects.filter(id=photo_id).first()
+def delete_photo(request, slug):
+    photo = Photo.active_objects.filter(slug=slug).first()
 
     if not photo:
         messages.error(request, 'Photo not found.')
-        return redirect('albums')
+        return redirect('album-list')
 
     album_slug = photo.album.slug
 
@@ -542,7 +557,7 @@ def delete_photo(request, photo_id):
     except Exception as e:
         messages.error(request, f'Error deleting photo: {e}')
 
-    return redirect('photos', album_slug=album_slug)
+    return redirect('upload-photo', slug=album_slug)
 
 
 # ------------------------ Events ------------------------ #
@@ -556,7 +571,7 @@ def events(request):
         'events': events,
     }
 
-    return render(request, 'dashboard/events.html', context)
+    return render(request, 'dashboard/events/list.html', context)
 
 
 @login_required
@@ -564,22 +579,28 @@ def create_event(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
-        date = request.POST.get('date')
-        location = request.POST.get('location')
+        event_date = request.POST.get('event_date')
+        start_time = request.POST.get('start_time')
+        venue = request.POST.get('venue')
+        end_time = request.POST.get('end_time')
+        organizer = request.POST.get('organizer')
+        cta = request.POST.get('cta')
+        image = request.FILES.get('image')
 
         try:
-            Event.objects.create(title=title, description=description, date=date, location=location)
+            Event.objects.create(title=title, description=description, image=image, event_date=event_date, start_time=start_time, end_time=end_time, venue=venue, organizer=organizer, cta=cta)
             messages.success(request, 'Event created successfully.')
         except Exception as e:
             messages.error(request, f'Error creating event: {e}')
-
-        return redirect('create-event')
+            return redirect('create-event')
+        
+        return redirect('event-list')
 
     context = {
         'menu': 'events',
     }
 
-    return render(request, 'dashboard/create_event.html', context)
+    return render(request, 'dashboard/events/form.html', context)
 
 
 @login_required
@@ -588,28 +609,37 @@ def edit_event(request, slug):
 
     if not event:
         messages.error(request, 'Event not found.')
-        return redirect('events')
+        return redirect('event-list')
 
     if request.method == 'POST':
         event.title = request.POST.get('title')
         event.description = request.POST.get('description')
-        event.date = request.POST.get('date')
-        event.location = request.POST.get('location')
+        event.event_date = request.POST.get('event_date')
+        event.start_time = request.POST.get('start_time')
+        event.end_time = request.POST.get('end_time')
+        event.venue = request.POST.get('venue')
+        event.organizer = request.POST.get('organizer')
+        event.cta = request.POST.get('cta')
+
+        image = request.FILES.get('image')
+        if image:
+            event.image = image
 
         try:
             event.save()
             messages.success(request, 'Event updated successfully.')
         except Exception as e:
             messages.error(request, f'Error updating event: {e}')
+            return redirect('edit-event', slug=slug)
 
-        return redirect('edit-event', slug=slug)
+        return redirect('event-list')
 
     context = {
         'menu': 'events',
         'event': event,
     }
 
-    return render(request, 'dashboard/edit_event.html', context)
+    return render(request, 'dashboard/events/form.html', context)
 
 
 @login_required
@@ -621,12 +651,13 @@ def delete_event(request, slug):
         return redirect('events')
 
     try:
-        event.delete()
+        event.is_deleted = True
+        event.save()
         messages.success(request, 'Event deleted successfully.')
     except Exception as e:
         messages.error(request, f'Error deleting event: {e}')
 
-    return redirect('events')
+    return redirect('event-list')
 
 
 # ------------------------ News ------------------------ #
@@ -634,14 +665,14 @@ def delete_event(request, slug):
 
 @login_required
 def news_list(request):
-    news_items = News.active_objects.all()
+    news = News.active_objects.all()
 
     context = {
         'menu': 'news',
-        'news_items': news_items,
+        'news_list': news,
     }
 
-    return render(request, 'dashboard/news.html', context)
+    return render(request, 'dashboard/news/list.html', context)
 
 
 @login_required
@@ -650,68 +681,71 @@ def create_news(request):
         title = request.POST.get('title')
         content = request.POST.get('content')
         news_type = request.POST.get('type')
-        publish = request.POST.get('publish') == 'on'
+        cta = request.POST.get('cta')
 
         try:
-            News.objects.create(title=title, content=content, type=news_type, publish=publish)
+            News.objects.create(title=title, content=content, type=news_type, cta=cta)
             messages.success(request, 'News item created successfully.')
         except Exception as e:
             messages.error(request, f'Error creating news item: {e}')
+            return redirect('create-news')
 
-        return redirect('create-news')
-
+        return redirect('news-list')
+    
     context = {
         'menu': 'news',
     }
 
-    return render(request, 'dashboard/create_news.html', context)
+    return render(request, 'dashboard/news/form.html', context)
 
 
 @login_required
 def edit_news(request, slug):
-    news_item = News.active_objects.filter(slug=slug).first()
+    news = News.active_objects.filter(slug=slug).first()
 
-    if not news_item:
+    if not news:
         messages.error(request, 'News item not found.')
         return redirect('news')
 
     if request.method == 'POST':
-        news_item.title = request.POST.get('title')
-        news_item.content = request.POST.get('content')
-        news_item.type = request.POST.get('type')
-        news_item.publish = request.POST.get('publish') == 'on'
+        news.title = request.POST.get('title')
+        news.content = request.POST.get('content')
+        news.type = request.POST.get('type')
+        news.cta = request.POST.get('cta')
 
         try:
-            news_item.save()
+            news.save()
             messages.success(request, 'News item updated successfully.')
         except Exception as e:
             messages.error(request, f'Error updating news item: {e}')
+            return redirect('edit-news', slug=slug)
 
-        return redirect('edit-news', slug=slug)
-
+        return redirect('news-list')
+    
     context = {
         'menu': 'news',
-        'news_item': news_item,
+        'news': news,
     }
 
-    return render(request, 'dashboard/edit_news.html', context)
+    return render(request, 'dashboard/news/form.html', context)
 
 
 @login_required
 def delete_news(request, slug):
-    news_item = News.active_objects.filter(slug=slug).first()
+    news = News.active_objects.filter(slug=slug).first()
 
-    if not news_item:
+    if not news:
         messages.error(request, 'News item not found.')
         return redirect('news')
 
     try:
-        news_item.delete()
+        news.is_deleted = True
+        news.save()
         messages.success(request, 'News item deleted successfully.')
     except Exception as e:
         messages.error(request, f'Error deleting news item: {e}')
 
-    return redirect('news')
+    return redirect('news-list')
 
 
 # ------------------------ Enquiries ------------------------ #
@@ -725,7 +759,7 @@ def enquiries(request):
         'enquiries': enquiries,
     }
 
-    return render(request, 'dashboard/enquiries.html', context)
+    return render(request, 'dashboard/enquiries/list.html', context)
 
 
 @login_required
@@ -734,7 +768,7 @@ def view_enquiry(request, id):
 
     if not enquiry:
         messages.error(request, 'Enquiry not found.')
-        return redirect('enquiries')
+        return redirect('enquiry-list')
 
     context = {
         'menu': 'enquiries',
@@ -750,7 +784,7 @@ def resolve_enquiry(request, id):
 
     if not enquiry:
         messages.error(request, 'Enquiry not found.')
-        return redirect('enquiries')
+        return redirect('enquiry-list')
 
     enquiry.is_resolved = True
 
@@ -766,15 +800,15 @@ def resolve_enquiry(request, id):
 # ------------------------ Online Forms ------------------------ #
 
 @login_required
-def online_forms(request):
-    forms = OnlineForm.active_objects.all()
+def online_applications(request):
+    applications = OnlineForm.active_objects.all()
 
     context = {
-        'menu': 'online_forms',
-        'forms': forms,
+        'menu': 'applications',
+        'applications': applications,
     }
 
-    return render(request, 'dashboard/online_forms.html', context)
+    return render(request, 'dashboard/applications/list.html', context)
 
 
 @login_required

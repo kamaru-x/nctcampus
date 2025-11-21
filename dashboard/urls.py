@@ -65,7 +65,7 @@ urlpatterns = [
 
 
     #------------ Online Forms ------------ #
-    path('online-forms/', views.online_forms, name='online-form-list'),
+    path('online-applications/', views.online_applications, name='online-application-list'),
     path('online-forms/<int:id>/view/', views.view_online_form, name='view-online-form'),
     path('online-forms/<int:id>/delete/', views.delete_online_form, name='delete-online-form'),
 ]

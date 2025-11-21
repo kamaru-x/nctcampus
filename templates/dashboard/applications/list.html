@@ -6,7 +6,7 @@
 <div class="col-span-12 mt-6">
     <div>
         <h2 class="text-2xl font-bold text-center text-primary border-b pb-5 my-10">
-            ENQUIRIES
+            ONLINE APPLICATIONS
         </h2>
     </div>
 
@@ -29,29 +29,25 @@
                         {% url 'delete-enquiry' enquiry.slug as delete_url %}
 
                         <tr class="intro-x">
-                            <td class="text-center w-32 ">
-                                {{ forloop.counter }}
+                            <td class="w-40 !py-4"> <a href="" class="underline decoration-dotted whitespace-nowrap">#INV-22807556</a> </td>
+                            <td class="w-40">
+                                <a href="" class="font-medium whitespace-nowrap">Keanu Reeves</a> 
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">Ohio, Ohio</div>
                             </td>
                             <td class="text-center">
-                                {{ enquiry.name }}
+                                <div class="flex items-center justify-center whitespace-nowrap text-success"> <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> Completed </div>
                             </td>
-                            <td class="text-center">
-                                {{ enquiry.mobile }}
+                            <td>
+                                <div class="whitespace-nowrap">Direct bank transfer</div>
+                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">25 March, 12:55</div>
                             </td>
-                            <td class="text-center">
-                                {{ enquiry.email }}
+                            <td class="w-40 text-right">
+                                <div class="pr-16">$22,000,00</div>
                             </td>
-                            <td class="text-center">
-                                {{ enquiry.date_added | date:"d M Y" }}
-                            </td>
-                            <td class="table-report__action w-32">
+                            <td class="table-report__action">
                                 <div class="flex justify-center items-center">
-                                    <a class="flex items-center text-warning mx-3" href=""> 
-                                        <i data-lucide="eye" class="w-4 h-4"></i>
-                                    </a>
-                                    <a class="flex items-center text-danger mx-3" href="javascript:;" onclick="openDeleteModal('{{ delete_url }}')"> 
-                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                    </a>
+                                    <a class="flex items-center text-primary whitespace-nowrap mr-5" href="javascript:;"> <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> View Details </a>
+                                    <a class="flex items-center text-primary whitespace-nowrap" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal"> <i data-lucide="arrow-left-right" class="w-4 h-4 mr-1"></i> Change Status </a>
                                 </div>
                             </td>
                         </tr>

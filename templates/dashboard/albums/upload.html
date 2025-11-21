@@ -16,13 +16,58 @@
         </div>
         <!-- END: Blog Layout -->
          
-        <form action="/file-upload" class="dropzone mt-5">
-            <div class="fallback"> <input name="file" type="file" multiple /> </div>
-            <div class="dz-message" data-dz-message>
-                <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                <div class="text-slate-500"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
+        <!-- BEGIN: Uplaod Product -->
+        <div class="mt-10">
+            <div class="w-full mt-3 xl:mt-0 border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4">
+                
+                {% if files %}
+                <div class="grid grid-cols-12 gap-5 pl-4 pr-5">
+                    {% for file in files %}
+
+                    {% url 'delete-photo' file.slug as delete_url %}
+                    
+                    {% if album.type == 'photos' %}
+                        <div class="col-span-6 md:col-span-3 h-48 w-64 relative image-fit cursor-pointer zoom-in">
+                            <img class="rounded-md" alt="" src="{% if file.file %} {{ file.file.url }} {% else %} https://via.placeholder.com/150.png?text=No+Image {% endif %}">
+                            <a href="javascript:;" onclick="openDeleteModal('{{ delete_url }}')" title="Remove this image?" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"> 
+                                <i data-lucide="x" class="w-4 h-4"></i> 
+                            </a>
+                        </div>
+                    {% elif album.type == 'videos' %}
+                        <div class="col-span-6 md:col-span-3 h-48 w-64 relative image-fit cursor-pointer zoom-in">
+                            <video class="rounded-md w-full h-full object-cover"
+                                controls>
+                                <source src="{% if file.file %}{{ file.file.url }}{% else %}https://via.placeholder.com/150.png?text=No+Video{% endif %}" 
+                                        type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+
+                            <a href="javascript:;" onclick="openDeleteModal('{{ delete_url }}')" title="Remove this video?" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <form action="" method="post" enctype="multipart/form-data" class="p-5">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="col-span-12 lg:col-span-9">
+                            <label for="photo" class="form-label">Cover Image</label>
+                            <input name="files" id="photo" type="file" class="form-control file" multiple>
+                        </div>
+                        <div class="col-span-12 lg:col-span-3 text-right mt-5">
+                            <a href="{% url 'album-list' %}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>
+                            <button type="submit" class="btn btn-primary w-24">Save</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
+        <!-- END: Uplaod Product -->
         
     </div>
 </div>
