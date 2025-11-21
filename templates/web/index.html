@@ -9,11 +9,15 @@
     <script type="text/javascript" src="{% static 'web/pano2vr_player.js' %}"></script>
     <script type="text/javascript" src="{% static 'web/skin.js' %}"></script>
 
-    <div id="container" style="width:100%;height:100%;overflow:hidden; " class="deskonly">
-
+    <div id="container" class="deskonly" style="width:100%;">
+        <img 
+            src="{% static 'web/images/banner.png' %}" 
+            alt=""
+            style="width:100%; height:auto; display:block;"
+        >
     </div>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         // create the panorama player with the container
         pano = new pano2vrPlayer("container");
         // add the skin object
@@ -23,7 +27,7 @@
         window.addEventListener("load", function() {
         pano.readConfigUrlAsync("{% static 'web/pano.xml' %}");
         });
-    </script>
+    </script> -->
 
     <div class="clearfix"></div>
 
@@ -61,7 +65,7 @@
                 <ul class="marquee_text" style="margin: 0;padding: 0;">
                     <li>
                         <i class="fa fa-bullhorn"></i>
-                        <a href="#" target="_blank" id="blink">
+                        <a href="#" target="_blank" id="blink" style="color: white;">
                             <blink>
                                 Admission Started In PLUS ONE(Commerce,Humanities)
                             </blink>
