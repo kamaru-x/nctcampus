@@ -26,19 +26,17 @@
 
                     {% url 'delete-photo' file.slug as delete_url %}
                     
-                    {% if album.type == 'photos' %}
+                    {% if album.type == 'photo' %}
                         <div class="col-span-6 md:col-span-3 h-48 w-64 relative image-fit cursor-pointer zoom-in">
                             <img class="rounded-md" alt="" src="{% if file.file %} {{ file.file.url }} {% else %} https://via.placeholder.com/150.png?text=No+Image {% endif %}">
                             <a href="javascript:;" onclick="openDeleteModal('{{ delete_url }}')" title="Remove this image?" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"> 
                                 <i data-lucide="x" class="w-4 h-4"></i> 
                             </a>
                         </div>
-                    {% elif album.type == 'videos' %}
+                    {% elif album.type == 'video' %}
                         <div class="col-span-6 md:col-span-3 h-48 w-64 relative image-fit cursor-pointer zoom-in">
-                            <video class="rounded-md w-full h-full object-cover"
-                                controls>
-                                <source src="{% if file.file %}{{ file.file.url }}{% else %}https://via.placeholder.com/150.png?text=No+Video{% endif %}" 
-                                        type="video/mp4">
+                            <video class="rounded-md w-full h-full object-cover" controls>
+                                <source src="{% if file.file %}{{ file.file.url }}{% else %}https://via.placeholder.com/150.png?text=No+Video{% endif %}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
 
@@ -56,8 +54,8 @@
                     {% csrf_token %}
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-12 lg:col-span-9">
-                            <label for="photo" class="form-label">Cover Image</label>
-                            <input name="files" id="photo" type="file" class="form-control file" multiple>
+                            <label for="photo" class="form-label">Upload Images</label>
+                            <input name="files" id="photo" type="file" class="form-control file" multiple {% if album.type == 'photo' %} accept="image/png, image/jpeg, image/jpg, image/webp" {% elif album.type == 'video' %} accept="video/mp4, video/webm, video/ogg, video/mkv, video/avi, video/mov" {% endif %}>
                         </div>
                         <div class="col-span-12 lg:col-span-3 text-right mt-5">
                             <a href="{% url 'album-list' %}" class="btn btn-outline-secondary w-24 mr-1">Cancel</a>

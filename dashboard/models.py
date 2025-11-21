@@ -150,7 +150,7 @@ class Event(BaseModel):
     start_time = models.TimeField(null=True, blank=True)
     end_time = models.TimeField(null=True, blank=True)
     venue = models.CharField(max_length=200)
-    organizer = models.CharField(max_length=100, null=True, blank=True)
+    organiser = models.CharField(max_length=100, null=True, blank=True)
     cta = models.URLField(null=True, blank=True)
 
     def __str__(self):

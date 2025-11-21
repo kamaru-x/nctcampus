@@ -583,12 +583,12 @@ def create_event(request):
         start_time = request.POST.get('start_time')
         venue = request.POST.get('venue')
         end_time = request.POST.get('end_time')
-        organizer = request.POST.get('organizer')
+        organiser = request.POST.get('organiser')
         cta = request.POST.get('cta')
         image = request.FILES.get('image')
 
         try:
-            Event.objects.create(title=title, description=description, image=image, event_date=event_date, start_time=start_time, end_time=end_time, venue=venue, organizer=organizer, cta=cta)
+            Event.objects.create(title=title, description=description, image=image, event_date=event_date, start_time=start_time, end_time=end_time, venue=venue, organiser=organiser, cta=cta)
             messages.success(request, 'Event created successfully.')
         except Exception as e:
             messages.error(request, f'Error creating event: {e}')
@@ -618,7 +618,7 @@ def edit_event(request, slug):
         event.start_time = request.POST.get('start_time')
         event.end_time = request.POST.get('end_time')
         event.venue = request.POST.get('venue')
-        event.organizer = request.POST.get('organizer')
+        event.organiser = request.POST.get('organiser')
         event.cta = request.POST.get('cta')
 
         image = request.FILES.get('image')
